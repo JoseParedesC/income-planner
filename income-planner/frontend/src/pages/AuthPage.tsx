@@ -25,13 +25,13 @@ export default function AuthPage() {
       <div className="auth__hero">
         <i className="auth__blob auth__blob--1" /><i className="auth__blob auth__blob--2" />
         <div className="brand"><span className="brand__logo" style={{ background: 'rgba(255,255,255,.2)', boxShadow: 'none' }}><TrendingUp size={20} strokeWidth={2.6} /></span><div><b>Income Planner</b><small style={{ color: 'rgba(255,255,255,.75)' }}>Planificación tributaria</small></div></div>
-        <div>
+        <div className="auth__copy">
           <h2>Planifica tus impuestos antes de que lleguen las fechas.</h2>
           <div className="auth__list">{POINTS.map(([Icon, t], i) => (
             <motion.div key={t} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.12, duration: 0.5, ease }}><Icon size={20} /><span>{t}</span></motion.div>))}
           </div>
         </div>
-        <small style={{ opacity: 0.75 }}>Para personas naturales asalariadas en Colombia</small>
+        <small className="auth__foot" style={{ opacity: 0.75 }}>Para personas naturales asalariadas en Colombia</small>
       </div>
       <div className="auth__panel">
         <motion.form className="auth__form" onSubmit={submit} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}>

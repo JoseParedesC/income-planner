@@ -11,7 +11,7 @@ export function Sidebar() {
       <Brand />
       <nav className="nav" aria-label="Principal">
         {ROUTES.map(({ path, label, icon: Icon }) => (
-          <NavLink key={path} to={path} end={path === '/'} className="nav__link">
+          <NavLink key={path} to={path} end={path === '/'} className="nav__link" title={label}>
             {({ isActive }) => (
               <>
                 {isActive && <motion.span layoutId="nav-pill" className="nav__pill" transition={{ type: 'spring', stiffness: 420, damping: 34 }} />}

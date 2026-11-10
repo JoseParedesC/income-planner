@@ -14,6 +14,7 @@
 - Jerarquía **ui → domain → layout → pages**, contextos (Auth, Meta, Plan) y hooks.
 - Animaciones: transición entre páginas (entrada/salida), cascada (stagger), contadores animados, barras/anillo de progreso, acordeón con altura animada, check dibujado, indicador de navegación con `layoutId`, lista de recomendaciones con `AnimatePresence`, skeletons. Respeta `prefers-reduced-motion`.
 - Estilo: tokens de diseño, tipografía Inter variable (autoalojada), tema claro/oscuro con toggle, sidebar en escritorio y barra inferior en móvil, glassmorphism, sombras en capas, página de login en dos paneles.
+- Responsive: barra lateral completa (≥1200px), solo iconos (960–1199px) y barra inferior (<960px); login ajustado a 100dvh sin scroll; rejillas fluidas con `min(100%, …)`; inputs a 16px (sin zoom en iOS); objetivos táctiles de 44px; ajustes para 560px, 360px y móvil horizontal.
 - Páginas: Panorama, Mis datos (campos con separador de miles y autoguardado), Simulador (desglose, distribución del ingreso, escala de tarifas, recomendaciones), Documentos, Fechas, Aprende.
 
 ## ⏳ Pendiente
