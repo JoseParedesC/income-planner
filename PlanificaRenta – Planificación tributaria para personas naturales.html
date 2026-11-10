@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PlanificaRenta · Planificación tributaria para personas naturales</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f4f7ff;--card:#fff;--tx:#1d2340;--mu:#636b8c;--bd:#e2e7f6;--pr:#5b4bff;--pr2:#ff6b9d;--ok:#12b886;--wa:#ff9f1c;--ba:#ef476f;--soft:#eceaff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12142a;--card:#1c1f3d;--tx:#eef0ff;--mu:#a2a8cf;--bd:#2c3060;--pr:#8f84ff;--pr2:#ff7eb0;--soft:#2a2d5c;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12142a;--card:#1c1f3d;--tx:#eef0ff;--mu:#a2a8cf;--bd:#2c3060;--pr:#8f84ff;--pr2:#ff7eb0;--soft:#2a2d5c;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:linear-gradient(120deg,#5b4bff,#ff6b9d);color:#fff;padding:18px 16px 56px}
+.w{max-width:980px;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h1{margin:0;font-size:1.4rem}.sub{opacity:.9;font-size:.9rem;margin:4px 0 0}
+select,input{font:inherit;color:var(--tx);background:var(--card);border:1.5px solid var(--bd);border-radius:12px;padding:9px 11px;width:100%}
+header select{width:auto;border:0;font-weight:600}
+input:focus,select:focus{outline:2px solid var(--pr);border-color:transparent}
+nav{display:flex;gap:8px;overflow-x:auto;margin:-34px auto 16px;padding:0 16px;max-width:980px;scrollbar-width:none}
+nav button{flex:none;border:0;background:var(--card);color:var(--tx);padding:10px 15px;border-radius:999px;font:600 .92rem inherit;box-shadow:0 3px 10px #0002;cursor:pointer}
+nav button.on{background:var(--pr);color:#fff}
+main{max-width:980px;margin:0 auto;padding:0 16px 40px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:18px;margin-bottom:14px}
+.card h2{margin:0 0 4px;font-size:1.15rem}.mu{color:var(--mu);font-size:.88rem}
+.g{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+label{display:block;font-weight:600;font-size:.88rem;margin-bottom:4px}label small{display:block;font-weight:400;color:var(--mu)}
+.k{border-radius:18px;padding:16px;color:#fff}.k b{display:block;font-size:1.5rem}.k span{font-size:.85rem;opacity:.95}
+.k1{background:linear-gradient(135deg,#5b4bff,#8f84ff)}.k2{background:linear-gradient(135deg,#ff6b9d,#ff9f1c)}.k3{background:linear-gradient(135deg,#12b886,#38d9a9)}.k4{background:linear-gradient(135deg,#3b82f6,#22d3ee)}
+.row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--bd)}.row:last-child{border:0}.row b{text-align:right}
+.tot{font-size:1.1rem;color:var(--pr)}
+.bar{height:12px;border-radius:99px;background:var(--soft);overflow:hidden;margin:6px 0 12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pr),var(--pr2));border-radius:99px;transition:width .4s}
+.tip{display:flex;gap:12px;padding:12px;border-radius:14px;background:var(--soft);margin-bottom:10px}.tip .e{font-size:1.5rem}
+.tip.w2{background:#ff9f1c26}.tip.ok{background:#12b88626}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--bd);cursor:pointer}
+.chk input{width:22px;height:22px;margin-top:2px;accent-color:var(--pr);flex:none}.chk.d span{text-decoration:line-through;color:var(--mu)}
+.ev{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)}.ev .m{min-width:58px;text-align:center;background:var(--soft);border-radius:12px;padding:6px;font-weight:700;color:var(--pr);height:fit-content}
+.ev.p{opacity:.55}
+details{border:1px solid var(--bd);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:var(--card)}summary{font-weight:700;cursor:pointer}details p{margin:8px 0 0;color:var(--mu)}
+.btn{border:0;background:var(--pr);color:#fff;padding:10px 16px;border-radius:12px;font:600 .9rem inherit;cursor:pointer}.btn.g2{background:var(--soft);color:var(--pr)}
+.pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
+footer{text-align:center;color:var(--mu);font-size:.8rem;padding:0 16px 30px;max-width:760px;margin:0 auto}
+</style>
+</head>
+<body>
+<header><div class="w top"><div><h1>🧾 PlanificaRenta</h1><p class="sub">Organiza tu información y simula tu impuesto de renta, antes de que llegue la fecha.</p></div>
+<select id="yr" aria-label="Año gravable"></select></div></header>
+<nav id="nav"></nav>
+<main>
+<section id="s0">
+ <div class="g" id="kp"></div>
+ <div class="card" style="margin-top:14px"><h2>👋 ¿Cómo funciona?</h2>
+ <p class="mu">1) Registra tus ingresos y deducciones en <b>Mis datos</b>. 2) Mira tu impuesto estimado en el <b>Simulador</b>. 3) Reúne soportes en <b>Documentos</b>. 4) No pierdas ninguna <b>Fecha</b>. 5) Refuerza tu cultura tributaria en <b>Aprende</b>.</p>
+ <p class="mu" id="prog"></p><div class="bar"><i id="pb" style="width:0"></i></div>
+ <button class="btn" onclick="go(1)">Empezar con mis datos →</button> <button class="btn g2" onclick="demo()">Cargar ejemplo</button></div>
+</section>
+<section id="s1"><div class="card"><h2>📒 Mis ingresos y deducciones</h2><p class="mu">Valores anuales en pesos colombianos. Se guardan solo en tu navegador.</p><div class="g" id="fm" style="margin-top:12px"></div></div></section>
+<section id="s2">
+ <div class="card"><h2>🧮 Resultado de tu simulación</h2><p class="mu" id="yl"></p><div id="rs"></div></div>
+ <div class="card"><h2>💡 Recomendaciones de planificación</h2><div id="rc"></div></div>
+</section>
+<section id="s3"><div class="card"><h2>📂 Checklist de documentos</h2><p class="mu">Marca lo que ya tienes listo para tu declaración.</p><div id="ck"></div></div></section>
+<section id="s4"><div class="card"><h2>⏰ Tu fecha de declaración</h2><p class="mu">La DIAN fija el día según los dos últimos dígitos de tu NIT/cédula. Consúltalo en el calendario tributario oficial e ingrésalo aquí.</p>
+ <div style="max-width:260px;margin:10px 0"><input type="date" id="fd"></div><div id="cd"></div></div>
+ <div class="card"><h2>📅 Hitos del año</h2><div id="ev"></div></div></section>
+<section id="s5"><div class="card"><h2>📚 Cultura tributaria en breve</h2><div id="ed"></div></div></section>
+</main>
+<footer>Prototipo académico con fines orientativos. No reemplaza la asesoría de un contador público, la información oficial de la DIAN ni la normativa vigente. Verifica UVT, topes y fechas en dian.gov.co.</footer>
+<script>
+const UVT={2023:42412,2024:47065,2025:49799,2026:52374};
+const TAR=[[1090,0,0],[1700,.19,0],[4100,.28,116],[8670,.33,788],[18970,.35,2296],[31000,.37,5901],[1e12,.39,10352]];
+const F=[['ing','Ingresos laborales brutos','Salarios, bonos, honorarios'],['aportes','Aportes obligatorios salud y pensión','Vacío = se estima el 8 %'],['ret','Retenciones en la fuente','Certificado de ingresos y retenciones'],['vol','Aportes voluntarios pensión / AFC','Reducen tu base'],['viv','Intereses de crédito de vivienda','Pagados en el año'],['prep','Medicina prepagada / seguros de salud','Pagados en el año'],['gmf','GMF (4×1000) pagado','Se toma el 50 %'],['dep','Número de dependientes','Hijos, cónyuge, padres'],['pat','Patrimonio bruto a 31 dic','Bienes, cuentas, inversiones'],['cons','Consumos con tarjeta, compras o consignaciones','El mayor valor del año']];
+const DOCS=['Certificado de ingresos y retenciones (empleador)','Certificados bancarios: saldos e intereses','Certificado de intereses de crédito de vivienda','Soportes de medicina prepagada o seguros de salud','Soportes de dependientes (registro civil, estudios)','Certificados de aportes voluntarios a pensión / AFC','Facturas electrónicas de compras deducibles','Soportes de bienes: escrituras, tarjeta de propiedad','Información exógena revisada en el portal DIAN','RUT actualizado','Firma electrónica (IFE) vigente','Borrador de declaración sugerida revisado'];
+const MESES=[[0,'Ene','Reúne soportes','Arranca el año ordenando facturas y certificados.'],[2,'Mar','Certificado de ingresos','Tu empleador debe entregarte el certificado de ingresos y retenciones del año anterior.'],[5,'Jun','Revisa tu RUT y firma','Actualiza el RUT y verifica que tu firma electrónica no esté vencida.'],[7,'Ago','Abre la declaración','Inicia el periodo de declaración de renta (agosto–octubre según tus dígitos).'],[9,'Oct','Cierre del plazo','Últimos días para presentar sin sanción; revisa tu fecha exacta.'],[10,'Nov','Planifica el cierre','Evalúa aportes voluntarios, AFC y gastos deducibles pendientes.'],[11,'Dic','Aportes antes del 31','Los aportes voluntarios deben consignarse dentro del año gravable.']];
+const EDU=[['¿Qué es planificar tus impuestos?','Es organizar con anticipación tu información y usar de forma legal los beneficios que permite la norma. No es evadir: es conocer tus opciones para pagar lo justo.'],['¿Quién debe declarar renta?','Quien supere topes de ingresos, patrimonio, consumos, compras o consignaciones (por ejemplo, ingresos o patrimonio por encima de los umbrales en UVT definidos cada año).'],['¿Qué es la UVT?','La Unidad de Valor Tributario es la medida con que se expresan los topes y tarifas. Cambia cada año; por eso el simulador te deja elegir el año gravable.'],['Rentas exentas y deducciones','Algunos ingresos y gastos reducen tu base gravable: aportes voluntarios, intereses de vivienda, medicina prepagada, dependientes y el 25 % de renta exenta laboral, todos con límites.'],['Conserva tus soportes','La DIAN puede pedirte los documentos que respaldan lo declarado. Guárdalos ordenados y por año.'],['Declaración sugerida','La DIAN prepara un borrador con información de terceros. Revísalo: puede tener errores u omisiones y la responsabilidad final es tuya.']];
+const $=id=>document.getElementById(id);
+const cop=v=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(Math.round(v||0));
+let S={y:2026,d:{},c:{},f:''};
+try{const r=localStorage.getItem('pr_v1');if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem('pr_v1',JSON.stringify(S))}catch(e){}};
+function imp(rlg,u){const x=rlg/u;let lo=0;for(const[hi,r,a]of TAR){if(x<=hi)return Math.max(0,((x-lo)*r+a)*u);lo=hi}}
+function calc(d,y){const u=UVT[y],n=k=>Math.max(0,+d[k]||0),ing=n('ing');
+ const apo=(d.aportes===''||d.aportes==null)?ing*.08:n('aportes'),base=Math.max(0,ing-apo);
+ const viv=Math.min(n('viv'),1200*u),prep=Math.min(n('prep'),192*u),gmf=n('gmf')*.5,nd=Math.floor(n('dep')),
+ dep=nd>0?Math.min(ing*.1,384*u):0,vol=Math.min(n('vol'),ing*.3,3800*u),ded=viv+prep+gmf+dep;
+ const e25=Math.min(Math.max(0,base-ded-vol)*.25,790*u),cap=Math.min(base*.4,1340*u),sum=ded+vol+e25,lim=Math.min(sum,cap),ex=Math.min(nd,4)*72*u;
+ const rlg=Math.max(0,base-lim-ex),tax=imp(rlg,u),ret=n('ret');
+ const obl=ing>=1400*u||n('pat')>=4500*u||n('cons')>=1400*u;
+ return{u,ing,apo,base,viv,prep,gmf,dep,vol,e25,cap,sum,lim,ex,rlg,tax,ret,saldo:tax-ret,obl,ef:ing?tax/ing:0,nd}}
+function build(){
+ $('yr').innerHTML=Object.keys(UVT).map(y=>`<option ${y==S.y?'selected':''}>${y}</option>`).join('');
+ $('yr').onchange=e=>{S.y=+e.target.value;save();upd()};
+ const names=['🏠 Panorama','📒 Mis datos','🧮 Simulador','📂 Documentos','⏰ Fechas','📚 Aprende'];
+ $('nav').innerHTML=names.map((t,i)=>`<button onclick="go(${i})">${t}</button>`).join('');
+ $('fm').innerHTML=F.map(([k,l,h])=>`<div><label for="f_${k}">${l}<small>${h}</small></label><input id="f_${k}" type="number" min="0" inputmode="numeric" value="${S.d[k]??''}" placeholder="${k=='dep'?'0':'$ 0'}"></div>`).join('');
+ F.forEach(([k])=>$('f_'+k).oninput=e=>{S.d[k]=e.target.value;save();upd()});
+ $('ck').innerHTML=DOCS.map((t,i)=>`<label class="chk"><input type="checkbox" data-i="${i}"><span>${t}</span></label>`).join('');
+ document.querySelectorAll('#ck input').forEach(c=>c.onchange=()=>{S.c[c.dataset.i]=c.checked;save();upd()});
+ $('fd').value=S.f;$('fd').onchange=e=>{S.f=e.target.value;save();upd()};
+ $('ed').innerHTML=EDU.map(([t,p])=>`<details><summary>${t}</summary><p>${p}</p></details>`).join('');
+ go(0)}
+function go(i){document.querySelectorAll('section').forEach((s,j)=>s.classList.toggle('on',i==j));document.querySelectorAll('nav button').forEach((b,j)=>b.classList.toggle('on',i==j));scrollTo({top:0,behavior:'smooth'})}
+function demo(){S.d={ing:78000000,aportes:'',ret:6200000,vol:6000000,viv:4500000,prep:3000000,gmf:400000,dep:1,pat:150000000,cons:30000000};F.forEach(([k])=>$('f_'+k).value=S.d[k]);save();upd();go(2)}
+const row=(a,b,c)=>`<div class="row"><span>${a}</span><b ${c?'class="tot"':''}>${b}</b></div>`;
+function upd(){
+ const r=calc(S.d,S.y),done=DOCS.filter((_,i)=>S.c[i]).length,pc=Math.round(done/DOCS.length*100);
+ document.querySelectorAll('#ck input').forEach(c=>{c.checked=!!S.c[c.dataset.i];c.parentNode.classList.toggle('d',c.checked)});
+ $('kp').innerHTML=`<div class="k k1"><span>Impuesto estimado</span><b>${cop(r.tax)}</b></div><div class="k k2"><span>${r.saldo>=0?'Saldo a pagar':'Saldo a favor'}</span><b>${cop(Math.abs(r.saldo))}</b></div><div class="k k3"><span>Documentos listos</span><b>${pc} %</b></div><div class="k k4"><span>¿Debes declarar?</span><b>${r.ing||S.d.pat?(r.obl?'Probablemente sí':'Probablemente no'):'—'}</b></div>`;
+ $('prog').textContent=`Documentos: ${done} de ${DOCS.length} listos`;$('pb').style.width=pc+'%';
+ $('yl').textContent=`Año gravable ${S.y} · UVT ${cop(r.u)}`;
+ const w=v=>r.ing?Math.min(100,v/r.ing*100):0;
+ $('rs').innerHTML=row('Ingresos brutos',cop(r.ing))+row('(−) Aportes obligatorios',cop(r.apo))+row('Ingreso neto base',cop(r.base))
+ +row('(−) Deducciones (vivienda, salud, dependientes, GMF)',cop(r.viv+r.prep+r.dep+r.gmf))+row('(−) Aportes voluntarios exentos',cop(r.vol))+row('(−) Renta exenta 25 %',cop(r.e25))
+ +row('Beneficios aplicados (tope 40 % / 1.340 UVT)',cop(r.lim))+row('(−) Deducción adicional por dependientes',cop(r.ex))+row('Renta líquida gravable',cop(r.rlg),1)+row('Impuesto de renta estimado',cop(r.tax),1)+row('(−) Retenciones',cop(r.ret))+row(r.saldo>=0?'Saldo a pagar':'Saldo a favor',cop(Math.abs(r.saldo)),1)
+ +`<p class="mu" style="margin:12px 0 0">Tasa efectiva: <b>${(r.ef*100).toFixed(1)} %</b> de tus ingresos · Uso del tope de beneficios: <b>${r.cap?Math.min(100,r.sum/r.cap*100).toFixed(0):0} %</b></p><div class="bar"><i style="width:${r.cap?Math.min(100,r.sum/r.cap*100):0}%"></i></div>`;
+ const t=[],add=(e,c,x)=>t.push(`<div class="tip ${c}"><span class="e">${e}</span><div>${x}</div></div>`);
+ if(!r.ing)add('✍️','','Registra tus ingresos en <b>Mis datos</b> o carga el ejemplo para ver recomendaciones personalizadas.');
+ else{
+  add(r.obl?'📌':'✅',r.obl?'w2':'ok',r.obl?'Superas al menos uno de los topes de obligación de declarar. Prepara tu información con tiempo.':'Con los datos ingresados no superas los topes de ingresos, patrimonio ni consumos. Confírmalo con el calendario DIAN.');
+  const s=structuredClone(S.d);s.vol=(+s.vol||0)+r.ing*.1;const a=r.tax-calc(s,S.y).tax;
+  if(a>1000)add('💜','',`Si aportaras un 10 % adicional de tus ingresos (${cop(r.ing*.1)}) a pensión voluntaria o AFC, podrías ahorrar cerca de <b>${cop(a)}</b> de impuesto (estimado). Hazlo antes del 31 de diciembre.`);
+  if(!(+S.d.viv))add('🏠','','Si pagas intereses de crédito de vivienda, son deducibles (hasta 1.200 UVT al año). Pide el certificado a tu banco.');
+  if(!(+S.d.dep))add('👨‍👩‍👧','','¿Tienes dependientes? Pueden darte deducciones adicionales; reúne los soportes si aplica.');
+  if(r.cap&&r.sum>=r.cap)add('⚠️','w2','Ya alcanzas el tope global de beneficios (40 % del ingreso neto o 1.340 UVT). Más deducciones no reducirán más tu impuesto.');
+  if(r.saldo<0)add('🎉','ok',`Tus retenciones superan el impuesto estimado: podrías tener un saldo a favor de ${cop(-r.saldo)}.`);
+  else if(r.saldo>0)add('💸','w2',`Podrías tener un saldo a pagar de ${cop(r.saldo)}. Ve guardando ese valor para no llevarte sorpresas.`);
+  if(pc<100)add('📂','',`Te falta reunir ${DOCS.length-done} documentos. Revisa la pestaña Documentos.`)}
+ $('rc').innerHTML=t.join('');
+ const hoy=new Date(),m=hoy.getMonth();
+ $('ev').innerHTML=MESES.map(([i,a,t,d])=>`<div class="ev ${i<m?'p':''}"><div class="m">${a}</div><div><b>${t}</b>${i==m?' <span class="pill" style="background:var(--wa);color:#fff">Este mes</span>':''}<div class="mu">${d}</div></div></div>`).join('');
+ if(S.f){const dd=Math.ceil((new Date(S.f+'T23:59:59')-hoy)/864e5);$('cd').innerHTML=dd>=0?`<div class="tip ${dd<30?'w2':'ok'}"><span class="e">⏳</span><div>Faltan <b>${dd} días</b> para tu fecha límite. ${dd<30?'¡Ya es hora de tener todo listo!':'Vas con tiempo para planificar.'}</div></div>`:`<div class="tip w2"><span class="e">📌</span><div>Esa fecha ya pasó. Si no declaraste, consulta cómo regularizarte con la DIAN.</div></div>`}else $('cd').innerHTML=''}
+build();upd();
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "planifica-renta",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build:shared": "npm run build -w @pr/shared",
+    "build:web": "npm run build -w @pr/web",
+    "build:api": "npm run build -w @pr/api",
+    "build": "npm run build:shared && npm run build:web && npm run build:api",
+    "start": "node apps/api/dist/index.js",
+    "dev": "npm run build:shared && concurrently -n api,web -c blue,magenta \"npm run dev -w @pr/api\" \"npm run dev -w @pr/web\"",
+    "typecheck": "npm run build:shared && npm run typecheck -w @pr/api && npm run typecheck -w @pr/web",
+    "test": "npm run build:shared && npm test -w @pr/shared"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "typescript": "^5.6.0"
+  }
+}
