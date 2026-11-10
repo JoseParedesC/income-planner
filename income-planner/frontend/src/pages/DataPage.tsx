@@ -1,6 +1,7 @@
 import { Briefcase, Building2, PiggyBank } from 'lucide-react';
 import { Badge, AnimatedNumber, Card, CardHeader, NumberField, Skeleton, Stagger, StaggerItem } from '../components/ui';
 import { usePlan } from '../context/PlanContext';
+import { formatNumber } from '../lib/format';
 import type { TaxInputs } from '../types';
 
 type F = { k: keyof TaxInputs; label: string; hint: string; currency?: boolean; nullable?: boolean };
@@ -30,7 +31,7 @@ export default function DataPage() {
         <StaggerItem key={g.title}><Card>
           <CardHeader icon={g.icon} title={g.title} description={g.desc} />
           <div className="grid grid--fields">
-            {g.fields.map((f) => <NumberField key={f.k} id={f.k} label={f.label} hint={f.hint} currency={f.currency} nullable={f.nullable} max={f.k === 'dep' ? 30 : undefined}
+            {g.fields.map((f) => <NumberField key={f.k} id={f.k} label={f.label} hint={f.hint} currency={f.currency} nullable={f.nullable} placeholder={f.nullable ? formatNumber(result.apo) : undefined} max={f.k === 'dep' ? 30 : undefined}
               value={inputs[f.k]} onChange={(v) => setInput(f.k, v)} />)}
           </div>
         </Card></StaggerItem>
