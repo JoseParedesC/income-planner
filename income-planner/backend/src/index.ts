@@ -12,11 +12,14 @@ import { authRouter } from './routes/auth.js';
 import { metaRouter } from './routes/meta.js';
 import { taxRouter } from './routes/tax.js';
 import { checklistRouter } from './routes/checklist.js';
+import { importRouter } from './routes/import.js';
 
 const app = express();
 app.set('trust proxy', 1);
 app.use(helmet({ contentSecurityPolicy: false }));
 if (env.corsOrigin) app.use(cors({ origin: env.corsOrigin }));
+// Antes del parser JSON: recibe el .xlsx en binario (hasta 5 MB)
+app.use('/api/import', requireAuth, importRouter);
 app.use(express.json({ limit: '100kb' }));
 
 app.get('/api/health', async (_req, res) => {

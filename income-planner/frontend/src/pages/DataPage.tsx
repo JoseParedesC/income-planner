@@ -1,4 +1,5 @@
 import { Briefcase, Building2, PiggyBank } from 'lucide-react';
+import { F210Importer } from '../components/domain';
 import { Badge, AnimatedNumber, Card, CardHeader, NumberField, Skeleton, Stagger, StaggerItem } from '../components/ui';
 import { usePlan } from '../context/PlanContext';
 import { formatNumber } from '../lib/format';
@@ -27,6 +28,7 @@ export default function DataPage() {
   return (
     <Stagger className="stack">
       <StaggerItem><div className="row"><Badge>Impuesto estimado: <AnimatedNumber value={result.tax} /></Badge><span className="faint" style={{ fontSize: '.82rem' }}>Valores anuales en pesos colombianos · se guardan solos</span></div></StaggerItem>
+      <StaggerItem><F210Importer /></StaggerItem>
       {GROUPS.map((g) => (
         <StaggerItem key={g.title}><Card>
           <CardHeader icon={g.icon} title={g.title} description={g.desc} />

@@ -1,4 +1,4 @@
-import { ArrowRight, Banknote, FileCheck2, FolderCheck, Landmark, Sparkles, Wallet } from 'lucide-react';
+import { ArrowRight, Banknote, Coins, FileCheck2, FolderCheck, Landmark, Sparkles, Wallet } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IncomeFlowChart, KpiCard, ProgressRing, RecommendationList } from '../components/domain';
 import { AnimatedNumber, Button, Card, CardHeader, Stagger, StaggerItem } from '../components/ui';
@@ -12,6 +12,7 @@ export default function Dashboard() {
   const { result: r, done, inputs, loadDemo, recs, year } = usePlan();
   const nav = useNavigate();
   const pc = meta.docs.length ? (done.size / meta.docs.length) * 100 : 0;
+  const uvt = meta.uvt[year] ?? r.uvt;
   const hasData = r.ing > 0 || inputs.pat > 0;
   return (
     <Stagger className="stack" gap={0.08}>
@@ -29,7 +30,8 @@ export default function Dashboard() {
         <KpiCard tone="a" icon={Landmark} label="Impuesto estimado" hint={`Tasa efectiva ${(r.tasaEfectiva * 100).toFixed(1).replace('.', ',')} %`}><AnimatedNumber value={r.tax} /></KpiCard>
         <KpiCard tone="b" icon={r.saldo >= 0 ? Banknote : Wallet} label={r.saldo >= 0 ? 'Saldo a pagar' : 'Saldo a favor'} hint="Impuesto − retenciones"><AnimatedNumber value={Math.abs(r.saldo)} /></KpiCard>
         <KpiCard tone="c" icon={FolderCheck} label="Documentos listos" hint={`${done.size} de ${meta.docs.length}`}><AnimatedNumber value={pc} format={(n) => `${Math.round(n)} %`} /></KpiCard>
-        <KpiCard tone="d" icon={FileCheck2} label="¿Debes declarar?" hint="Según topes en UVT">{hasData ? (r.obligado ? 'Probablemente sí' : 'Probablemente no') : '—'}</KpiCard>
+        <KpiCard tone="d" icon={Coins} label={`Valor UVT ${year}`} hint="Unidad de Valor Tributario"><AnimatedNumber value={uvt} /></KpiCard>
+        <KpiCard tone="a" icon={FileCheck2} label="¿Debes declarar?" hint="Según topes en UVT">{hasData ? (r.obligado ? 'Probablemente sí' : 'Probablemente no') : '—'}</KpiCard>
       </div>
       <div className="grid grid--2">
         <StaggerItem><Card hover><CardHeader icon={Wallet} title="¿A dónde va tu ingreso?" description="Distribución del ingreso bruto anual" /><IncomeFlowChart r={r} /></Card></StaggerItem>

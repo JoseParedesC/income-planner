@@ -16,3 +16,8 @@ export interface Meta {
   milestones: { month: number; short: string; title: string; text: string }[];
   edu: { title: string; text: string }[];
 }
+export interface F210Import {
+  year: number | null; uvtInFile: number | null; inputs: Omit<TaxInputs, 'cons'>;
+  declaredTax: number | null; found: Record<number, number>; warnings: string[];
+}
+export interface F210Outcome { year: number; yearChanged: boolean; declaredTax: number | null; warnings: string[]; fields: number }

@@ -18,3 +18,15 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
   if (!res.ok) throw new ApiError(res.status, (data as { error?: string }).error ?? 'Error de red');
   return data as T;
 }
+
+/** Sube un archivo tal cual (binario) y devuelve la respuesta JSON. */
+export async function apiUpload<T>(path: string, file: File): Promise<T> {
+  const t = token.get();
+  const res = await fetch(`/api${path}`, {
+    method: 'POST', body: file,
+    headers: { 'content-type': 'application/octet-stream', ...(t ? { authorization: `Bearer ${t}` } : {}) },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new ApiError(res.status, (data as { error?: string }).error ?? 'Error de red');
+  return data as T;
+}

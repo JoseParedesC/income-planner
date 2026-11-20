@@ -9,7 +9,7 @@ income-planner/
 │   ├── src/
 │   │   ├── config/          variables de entorno
 │   │   ├── db/              pool de pg y migraciones SQL automáticas
-│   │   ├── domain/          tax.ts (cálculo), recommendations.ts, content.ts, schemas.ts (zod)
+│   │   ├── domain/          tax.ts (cálculo), f210.ts (lector del Formulario 210), recommendations.ts, content.ts, schemas.ts (zod)
 │   │   ├── middleware/      JWT
 │   │   ├── routes/          auth · meta (+simulate) · tax · checklist
 │   │   └── index.ts         servidor (también sirve frontend/dist)
@@ -58,5 +58,6 @@ Las migraciones se aplican solas al iniciar el backend.
 | GET | `/api/auth/me` | sí | Usuario actual |
 | GET/PUT | `/api/tax/:year` | sí | Datos tributarios y fecha DIAN del año |
 | GET/PUT | `/api/checklist/:year[/:key]` | sí | Documentos marcados |
+| POST | `/api/import/f210` | sí | Cuerpo binario `.xlsx` (≤ 5 MB) del Formulario 210 → `{ year, inputs, declaredTax, found, warnings }` |
 
 > Herramienta orientativa. Verifica UVT, topes, tarifas y fechas con la DIAN o un contador.
